@@ -2,6 +2,7 @@ const express = require("express");
 const authController = require("./auth.controller.js");  
 const { validationResult } = require("express-validator"); 
 const loginValidator = require("./validators/login.validator.js");
+const forgotPasswordValidator = require("./validators/forgotPassword.validator.js");
 const { StatusCodes } = require("http-status-codes");
 
 const authRouter = express.Router();
@@ -43,6 +44,28 @@ authRouter.post("/login", loginValidator, (req,res)=>{
         res.status(StatusCodes.BAD_REQUEST).json(Result.array());
     }
     });
+
+authRouter.post("/forgot-password", forgotPasswordValidator, (req, res) => {
+    const result = validationResult(req);
+    if (result.isEmpty()) {
+        return authController.handleForgotPassword(req, res);
+    }
+    return res.status(StatusCodes.BAD_REQUEST).json({
+        message: result.array()[0]?.msg || "Validation error",
+        errors: result.array(),
+    });
+});
+
+authRouter.post("/reset-password", forgotPasswordValidator, (req, res) => {
+    const result = validationResult(req);
+    if (result.isEmpty()) {
+        return authController.handleForgotPassword(req, res);
+    }
+    return res.status(StatusCodes.BAD_REQUEST).json({
+        message: result.array()[0]?.msg || "Validation error",
+        errors: result.array(),
+    });
+});
     
 module.exports = authRouter;
 

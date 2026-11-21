@@ -49,14 +49,14 @@ const Home = () => {
 
   return (
     <div
-      className="h-screen w-screen overflow-hidden flex flex-col relative"
+      className="min-h-screen w-full overflow-x-hidden flex flex-col relative"
       style={{
         background: "linear-gradient(135deg, #312e81 0%, #4f46e5 40%, #7c3aed 100%)",
       }}
     >
 
       {/* ── FloatingLines — fills entire screen ── */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
+      <div className="fixed inset-0 z-0 pointer-events-none">
         <FloatingLines
           enabledWaves={["top", "middle", "bottom"]}
           lineCount={8}
@@ -74,7 +74,7 @@ const Home = () => {
 
       {/* Subtle vignette overlay */}
       <div
-        className="absolute inset-0 z-0 pointer-events-none"
+        className="fixed inset-0 z-0 pointer-events-none"
         style={{
           background:
             "radial-gradient(ellipse at 60% 40%, rgba(99,102,241,0.25) 0%, transparent 70%)",
@@ -82,7 +82,7 @@ const Home = () => {
       />
 
       {/* ── All content above lines ── */}
-      <div className="relative z-10 flex flex-col h-full">
+      <div className="relative z-10 flex flex-col min-h-screen justify-between">
 
         {/* ── Navbar ── */}
         <nav className="flex items-center justify-between px-6 md:px-10 py-4 shrink-0">
@@ -135,7 +135,7 @@ const Home = () => {
         <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} />
 
         {/* ── Hero — takes remaining height ── */}
-        <div className="flex-1 flex flex-col items-center justify-center text-center px-6 pb-8">
+        <div className="flex-1 flex flex-col items-center justify-center text-center px-6 py-8">
 
           {/* Pill badge */}
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/25 bg-white/10 text-white/80 text-xs font-semibold tracking-widest uppercase mb-6">
@@ -157,14 +157,14 @@ const Home = () => {
           </p>
 
           {/* CTA buttons */}
-          <div className="flex flex-col sm:flex-row gap-3 mb-10">
+          <div className="flex flex-col sm:flex-row gap-3 mb-8">
             <Link to="/login">
-              <button className="px-7 py-3 bg-white text-indigo-700 rounded-2xl font-bold text-sm hover:bg-indigo-100 transition shadow-xl shadow-indigo-900/30 hover:-translate-y-0.5 duration-200">
+              <button className="w-full sm:w-auto px-7 py-3 bg-white text-indigo-700 rounded-2xl font-bold text-sm hover:bg-indigo-100 transition shadow-xl shadow-indigo-900/30 hover:-translate-y-0.5 duration-200 cursor-pointer">
                 Report Lost Item
               </button>
             </Link>
             <Link to="/login">
-              <button className="px-7 py-3 border border-white/30 rounded-2xl font-bold text-sm text-white hover:bg-white/10 hover:-translate-y-0.5 transition duration-200">
+              <button className="w-full sm:w-auto px-7 py-3 border border-white/30 rounded-2xl font-bold text-sm text-white hover:bg-white/10 hover:-translate-y-0.5 transition duration-200 cursor-pointer">
                 Report Found Item
               </button>
             </Link>
@@ -173,15 +173,15 @@ const Home = () => {
           {/* Feature pills — 3 compact cards in one row */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full max-w-2xl">
             {[
-              { title: "Smart Matching",   desc: "AI-powered item matching" },
-              { title: "Verified Claims",  desc: "Admin-reviewed recovery"  },
-              { title: "Secure Messaging", desc: "Safe communication"       },
+              { emoji: "⚡", title: "Smart Matching",   desc: "AI-powered item matching" },
+              { emoji: "🛡️", title: "Verified Claims",  desc: "Admin-reviewed recovery"  },
+              { emoji: "💬", title: "Secure Messaging", desc: "Safe communication"       },
             ].map(({ emoji, title, desc }) => (
               <div
                 key={title}
                 className="bg-white/10 border border-white/15 backdrop-blur-sm rounded-2xl px-4 py-3 text-left hover:bg-white/15 transition"
               >
-                <span className="text-xl">{}</span>
+                <span className="text-xl">{emoji}</span>
                 <p className="text-white font-bold text-sm mt-1">{title}</p>
                 <p className="text-white/50 text-xs mt-0.5">{desc}</p>
               </div>

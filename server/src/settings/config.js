@@ -86,8 +86,16 @@ app.use("/", adminRouter);
 app.use("/", matchRouter);
 app.use("/", claimRouter);
 
+// Root health check endpoint
+app.get("/", (req, res) => {
+  res.status(StatusCodes.OK).json({
+    message: "Smart Campus Lost & Found API is running",
+    status: "healthy",
+    documentation: "/api-docs",
+  });
+});
+
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
-console.log(swaggerSpecs);
 
 // send back a 404 error for any unknown api request
 // Sequence is important
